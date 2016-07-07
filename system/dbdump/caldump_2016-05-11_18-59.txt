@@ -1,0 +1,774 @@
+
+
+CREATE TABLE IF NOT EXISTS `calendars` (
+  `calendar_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `origin` varchar(255) NOT NULL DEFAULT 'default',
+  `share_type` enum('private','shared','public','public_open','private_group') NOT NULL,
+  `usergroup_id` int(11) DEFAULT NULL,
+  `calendar_color` varchar(20) NOT NULL DEFAULT '#0000FF',
+  `login_required` tinyint(1) NOT NULL DEFAULT '0',
+  `cal_startdate` date DEFAULT NULL,
+  `cal_enddate` date DEFAULT NULL,
+  `alterable_startdate` date DEFAULT NULL,
+  `alterable_enddate` date DEFAULT NULL,
+  `creator_id` int(11) NOT NULL,
+  `can_view` tinyint(1) NOT NULL DEFAULT '0',
+  `can_add` tinyint(1) NOT NULL DEFAULT '0',
+  `can_edit` tinyint(1) NOT NULL DEFAULT '0',
+  `can_delete` tinyint(1) NOT NULL DEFAULT '0',
+  `can_change_color` tinyint(1) NOT NULL DEFAULT '0',
+  `can_dd_drag` varchar(55) DEFAULT NULL,
+  `initial_show` tinyint(1) NOT NULL DEFAULT '0',
+  `active` enum('yes','no','period') DEFAULT 'yes',
+  `deleted` tinyint(1) DEFAULT '0',
+  `calendar_admin_email` varchar(255) DEFAULT NULL,
+  `users_can_email_event` tinyint(1) NOT NULL DEFAULT '0',
+  `all_event_mods_to_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `order_id` int(11) NOT NULL,
+  PRIMARY KEY (`calendar_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+
+INSERT INTO `calendars` VALUES("1","Cal 1","default","public","","#00ff00","0","","","","","2","1","1","1","1","1","everyone","1","yes","0","","0","0","3");
+INSERT INTO `calendars` VALUES("2","ggg","default","private","","#3366cc","0","","","","","2","0","0","0","0","0","only_owner","0","yes","0","","0","0","1");
+INSERT INTO `calendars` VALUES("3","calendar","default","public","","#ff00ff","0","","","","","4","1","1","0","0","0","only_owner","0","yes","0","","0","0","3");
+INSERT INTO `calendars` VALUES("7","drie","default","public","","#3366cc","0","","","","","2","1","0","0","0","0","only_owner","0","yes","0","","0","0","5");
+INSERT INTO `calendars` VALUES("9","vijf","default","public","","#3366cc","0","","","","","2","1","0","0","0","0","only_owner","0","yes","0","","0","0","2");
+INSERT INTO `calendars` VALUES("10","vier","default","private_group","1","#3366cc","0","","","","","2","1","1","1","1","0","only_owner","0","yes","0","","0","0","4");
+INSERT INTO `calendars` VALUES("11","cal of fff","default","private","","#3366cc","0","","","","","3","0","0","0","0","0","only_owner","0","yes","0","","0","0","6");
+INSERT INTO `calendars` VALUES("12","kalender1","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","0","","0","0","7");
+INSERT INTO `calendars` VALUES("13","kalender2","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","0","","0","0","8");
+INSERT INTO `calendars` VALUES("14","kal3","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","1","","0","0","9");
+INSERT INTO `calendars` VALUES("15","lll","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","1","","0","0","10");
+INSERT INTO `calendars` VALUES("16","mnmnm","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","1","","0","0","11");
+INSERT INTO `calendars` VALUES("17","hghhghg","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","1","","0","0","12");
+INSERT INTO `calendars` VALUES("18","fffff","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","1","","0","0","13");
+INSERT INTO `calendars` VALUES("19","dfgdfgdfgdfgdfgdfg","default","public","","#3366cc","0","","","","","16","0","0","0","0","0","only_owner","0","yes","0","","0","0","14");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `calendar_dditems` (
+  `dditem_id` int(11) NOT NULL AUTO_INCREMENT,
+  `calendar_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `info` varchar(255) NOT NULL,
+  `starttime` varchar(55) DEFAULT NULL,
+  `endtime` varchar(55) DEFAULT NULL,
+  `nightshift` tinyint(1) DEFAULT NULL,
+  `allDay` tinyint(1) NOT NULL DEFAULT '1',
+  `color` varchar(15) DEFAULT NULL,
+  `fff` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`dditem_id`),
+  KEY `calendar_id` (`calendar_id`),
+  CONSTRAINT `calendar_dditems_ibfk_1` FOREIGN KEY (`calendar_id`) REFERENCES `calendars` (`calendar_id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+INSERT INTO `calendar_dditems` VALUES("1","1","lllllllll","","","","0","1","#3366cc","0");
+INSERT INTO `calendar_dditems` VALUES("2","1","gfdhdaha","","","","0","1","#3366cc","0");
+INSERT INTO `calendar_dditems` VALUES("3","3","nrrr","","","","","1","#3366cc","0");
+INSERT INTO `calendar_dditems` VALUES("4","3","nrrrggggg","","","","","1","#f1c232","0");
+INSERT INTO `calendar_dditems` VALUES("5","3","jhjhjhjh","hgfshgs","","","","1","#ff0000","0");
+INSERT INTO `calendar_dditems` VALUES("6","3","hgdhg","","00:30:00","07:15:00","","0","#a2c4c9","0");
+INSERT INTO `calendar_dditems` VALUES("7","2","paul","","21:00:00","06:00:00","0","0","#3366cc","0");
+INSERT INTO `calendar_dditems` VALUES("8","11","gfafdgdagfa","","22:00:00","09:00:00","0","0","#ff9900","0");
+INSERT INTO `calendar_dditems` VALUES("9","10","hhhhh","hghgh","07:00:00","09:00:00","0","0","#f1c232","0");
+INSERT INTO `calendar_dditems` VALUES("10","2","jhghkgkjhkj","","","","0","1","#3366cc","0");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `calendar_options` (
+  `name` varchar(55) NOT NULL,
+  `value` text NOT NULL,
+  `section` varchar(55) NOT NULL,
+  `calendar_id` int(11) DEFAULT NULL,
+  `update_date` datetime NOT NULL,
+  UNIQUE KEY `name` (`name`,`section`,`calendar_id`),
+  KEY `calendar_id` (`calendar_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_location_field","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_phone_field","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_url_field","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","dropdown","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_location_field","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("dditems_usergroup_id","2","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("assign_dditem_to_user","1","","3","2016-02-02 17:59:12");
+INSERT INTO `calendar_options` VALUES("dditems_usergroup_id","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("assign_dditem_to_user","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","4","2016-02-12 18:00:02");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","5","2016-02-12 18:00:13");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","5","2016-02-12 18:00:14");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","6","2016-02-12 18:27:41");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","7","2016-04-17 16:17:21");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","7","2016-04-17 16:17:21");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","8","2016-02-12 18:31:24");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("show_location_field","1","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("show_phone_field","1","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("show_url_field","1","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("show_description_field","1","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","buttons","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","1","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","1","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","11","2016-04-06 19:15:03");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","12","2016-04-14 17:07:12");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","13","2016-04-14 17:07:24");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","14","2016-04-14 17:07:35");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","15","2016-04-14 17:08:19");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","16","2016-04-14 17:09:22");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","17","2016-04-14 17:17:30");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","18","2016-04-14 17:17:41");
+INSERT INTO `calendar_options` VALUES("description_field_required","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("location_field_required","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("phone_field_required","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("url_field_required","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_description_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_location_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_phone_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_url_field","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("usergroup_dditems_viewtype","","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("mail_assigned_event_to_user","0","","19","2016-04-17 13:10:44");
+INSERT INTO `calendar_options` VALUES("show_team_member_field","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","7","2016-04-17 16:17:20");
+INSERT INTO `calendar_options` VALUES("next_days_visible","2","","7","2016-04-17 16:17:21");
+INSERT INTO `calendar_options` VALUES("next_days_visible","3","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("next_days_visible","","","10","2016-05-01 20:14:31");
+INSERT INTO `calendar_options` VALUES("next_days_visible","","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("show_dropdown_1_field","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("show_dropdown_2_field","0","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("next_days_visible","","","9","2016-04-20 18:18:32");
+INSERT INTO `calendar_options` VALUES("add_team_member_to_title","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("add_custom_dropdown1_to_title","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("add_custom_dropdown2_to_title","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("add_team_member_to_title","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("add_custom_dropdown1_to_title","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("add_custom_dropdown2_to_title","1","","1","2016-05-05 09:18:35");
+INSERT INTO `calendar_options` VALUES("dditems_usergroup_id","1","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("assign_dditem_to_user","0","","2","2016-05-08 13:53:06");
+INSERT INTO `calendar_options` VALUES("notify_assign_teammember","1","","2","2016-05-08 13:53:06");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `calendar_locations` (
+  `location_id` int(11) NOT NULL AUTO_INCREMENT,
+  `calendar_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`location_id`),
+  UNIQUE KEY `calendar_id` (`calendar_id`,`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `current_editing` (
+  `current_editing_id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `token` varchar(255) NOT NULL,
+  `edit_date` datetime DEFAULT NULL,
+  `active` tinyint(1) NOT NULL,
+  PRIMARY KEY (`current_editing_id`),
+  KEY `event_id` (`event_id`),
+  KEY `user_id` (`user_id`),
+  KEY `edit_date` (`edit_date`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+
+INSERT INTO `current_editing` VALUES("1","2","1000000","69ff8430c7239a491d48273803d4ab121a0a1673","2016-01-30 19:04:37","0");
+INSERT INTO `current_editing` VALUES("2","2","2","b55d5bdd079ced069936693e7f9149e816786a16","2016-01-30 22:02:21","0");
+INSERT INTO `current_editing` VALUES("3","4","2","c21ca12ed5dd54f2251cc8640ea7b3242d0f6555","2016-01-30 22:02:49","0");
+INSERT INTO `current_editing` VALUES("4","8","2","bf5b3c9d6d6e81dd21ca60903541e82bfe2a31a9","2016-01-30 22:03:07","0");
+INSERT INTO `current_editing` VALUES("5","12","2","f83ccdebc22b6250ab5c25537c30b7480f8e5c10","2016-01-30 22:14:12","0");
+INSERT INTO `current_editing` VALUES("6","20","2","dc3fcdb331be801c0379209a0f58cd7348d4a092","2016-01-30 22:14:23","0");
+INSERT INTO `current_editing` VALUES("7","59","2","96a080e9459bb1444adfcd9c64d6f9d2eb93f8cc","2016-01-30 22:14:28","0");
+INSERT INTO `current_editing` VALUES("8","51","2","4978ab1c406f91bda566bb3930bf3e27d15f193d","2016-01-30 22:14:32","0");
+INSERT INTO `current_editing` VALUES("9","43","2","3718d8f502aa09b7ada58e3b2d93ec10fff13f20","2016-01-30 22:14:36","0");
+INSERT INTO `current_editing` VALUES("10","35","2","d767288efd5ff15a255510ed72afe84ee0cb9250","2016-01-30 22:14:39","0");
+INSERT INTO `current_editing` VALUES("11","4","2","c21ca12ed5dd54f2251cc8640ea7b3242d0f6555","2016-01-30 22:14:44","0");
+INSERT INTO `current_editing` VALUES("12","5","2","c4709fa46ab0f531b727f7b849db8ff8468e2122","2016-01-30 22:14:48","0");
+INSERT INTO `current_editing` VALUES("13","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:03:31","0");
+INSERT INTO `current_editing` VALUES("14","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:03:34","0");
+INSERT INTO `current_editing` VALUES("15","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:05:00","0");
+INSERT INTO `current_editing` VALUES("16","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:05:46","0");
+INSERT INTO `current_editing` VALUES("17","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:06:17","0");
+INSERT INTO `current_editing` VALUES("18","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:07:48","0");
+INSERT INTO `current_editing` VALUES("19","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:10:28","0");
+INSERT INTO `current_editing` VALUES("20","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:10:34","0");
+INSERT INTO `current_editing` VALUES("21","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:13:08","0");
+INSERT INTO `current_editing` VALUES("22","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:13:10","0");
+INSERT INTO `current_editing` VALUES("23","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:14:19","0");
+INSERT INTO `current_editing` VALUES("24","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-22 19:14:34","0");
+INSERT INTO `current_editing` VALUES("25","92","1000000","c50bd1dcb80cfdc5ab3597b7739222551e7b04ba","2016-02-23 19:53:45","0");
+INSERT INTO `current_editing` VALUES("26","51","1000000","e5fd6413c361a7fae64aff28397a139ebda0f9ec","2016-02-23 20:23:52","0");
+INSERT INTO `current_editing` VALUES("27","51","1000000","e5fd6413c361a7fae64aff28397a139ebda0f9ec","2016-02-23 20:44:16","0");
+INSERT INTO `current_editing` VALUES("28","51","1000000","e5fd6413c361a7fae64aff28397a139ebda0f9ec","2016-02-23 20:45:00","0");
+INSERT INTO `current_editing` VALUES("29","51","1000000","e5fd6413c361a7fae64aff28397a139ebda0f9ec","2016-02-23 20:45:20","0");
+INSERT INTO `current_editing` VALUES("30","51","1000000","e5fd6413c361a7fae64aff28397a139ebda0f9ec","2016-02-23 20:45:37","0");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `events` (
+  `event_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(255) DEFAULT NULL,
+  `location` varchar(255) DEFAULT NULL,
+  `description` text,
+  `phone` varchar(25) DEFAULT NULL,
+  `myurl` varchar(1024) DEFAULT NULL,
+  `date_start` date DEFAULT NULL,
+  `time_start` time DEFAULT NULL,
+  `date_end` date DEFAULT NULL,
+  `time_end` time DEFAULT NULL,
+  `allDay` tinyint(1) NOT NULL DEFAULT '0',
+  `calendartype` varchar(155) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `team_member_id` int(11) DEFAULT NULL,
+  `color` varchar(10) NOT NULL,
+  `assigned_by` int(11) DEFAULT NULL,
+  `repeating_event_id` int(11) DEFAULT NULL,
+  `repeating_divergent` tinyint(1) NOT NULL DEFAULT '0',
+  `create_date` datetime NOT NULL,
+  `calendar_id` int(11) NOT NULL,
+  `dropdown1_option_id` int(11) DEFAULT NULL,
+  `dropdown2_option_id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`event_id`),
+  KEY `calendar_id` (`calendar_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=299 DEFAULT CHARSET=utf8;
+
+INSERT INTO `events` VALUES("1","mmmm","","","","","2016-02-10","21:00:00","2016-02-11","22:00:00","0","","1000000","","#00ff00","0","0","0","2016-03-15 21:17:57","3","","");
+INSERT INTO `events` VALUES("56","mmmm","","","","","2016-02-08","08:00:00","2016-02-08","10:00:00","0","","1000000","","#00ff00","0","0","0","2016-03-15 21:17:57","3","","");
+INSERT INTO `events` VALUES("57","mmmm","","","","","2016-02-09","23:00:00","2016-02-09","23:00:00","0","","1000000","","#00ff00","0","0","0","2016-03-15 21:17:57","3","","");
+INSERT INTO `events` VALUES("59","mmmm","","","","","2016-02-11","21:00:00","2016-02-12","06:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","2","","");
+INSERT INTO `events` VALUES("60","mmmm","","","","","2016-02-18","21:00:00","2016-02-19","06:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","2","","");
+INSERT INTO `events` VALUES("61","mmmm","","","","","2016-02-08","21:00:00","2016-02-09","06:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","2","","");
+INSERT INTO `events` VALUES("62","mmmm","","","","","2016-02-08","09:00:00","2016-02-08","15:25:00","0","","3","","#00ff00","2","0","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("63","mmmm","thuis","hghghmmmm","0612345678","","2016-02-04","00:00:00","2016-02-04","00:00:00","1","","3","3","#00ff00","0","0","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("64","mmmm","","","","","2016-02-01","08:00:00","2016-02-01","08:30:00","0","","1000000","","#00ff00","0","0","0","2016-03-15 21:17:57","3","","");
+INSERT INTO `events` VALUES("65","mmmm","","","","","2016-02-02","07:00:00","2016-02-02","08:00:00","0","","1000000","","#00ff00","0","0","0","2016-03-15 21:17:57","3","","");
+INSERT INTO `events` VALUES("66","mmmm","","","","","2016-02-09","11:00:00","2016-02-09","11:30:00","0","","1000000","","#00ff00","0","0","0","2016-03-15 21:17:57","3","","");
+INSERT INTO `events` VALUES("67","mmmm","","","","","2016-02-11","20:00:00","2016-02-12","06:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("68","mmmm","","","","","2016-02-15","20:00:00","2016-02-16","06:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("69","mmmm","","","","","2016-02-09","22:00:00","2016-02-10","09:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("70","mmmm","","","","","2016-02-09","00:00:00","2016-02-09","00:00:00","1","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","10","","");
+INSERT INTO `events` VALUES("71","mmmm","","","","","2016-02-09","20:00:00","2016-02-10","06:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("72","mmmm","","","","","2016-02-09","00:30:00","2016-02-10","01:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("73","mmmm","","","","","2016-02-02","00:30:00","2016-02-03","01:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("74","mmmm","","","","","2016-02-02","00:30:00","2016-02-02","01:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("75","mmmm","","","","","2016-02-02","22:00:00","2016-02-02","09:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("76","mmmm","","","","","2016-02-05","22:00:00","2016-02-05","22:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("77","mmmm","","","","","2016-02-03","22:00:00","2016-02-03","09:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("78","mmmm","","","","","2016-02-04","22:00:00","2016-02-04","22:00:00","0","","3","3","#00ff00","3","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("79","mmmm","","","","","2016-02-05","22:00:00","2016-02-06","09:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("80","mmmm","","","","","2016-02-18","22:00:00","2016-02-18","22:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("81","mmmm","","","","","2016-02-05","21:00:00","2016-02-06","09:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("82","mmmm","","","","","2016-02-03","08:00:00","2016-02-03","10:30:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("83","mmmm","","","","","2016-02-08","22:00:00","2016-02-09","09:00:00","0","","3","5","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("87","mmmm","","","","","2016-02-15","22:00:00","2016-02-16","09:00:00","0","","3","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("88","mmmm","","","","","2016-02-15","07:00:00","2016-02-15","09:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","10","","");
+INSERT INTO `events` VALUES("89","mmmm","","","","","2016-02-16","07:00:00","2016-02-17","09:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","10","","");
+INSERT INTO `events` VALUES("90","mmmm","","","","","2016-02-15","22:00:00","2016-02-16","09:00:00","0","","5","","#00ff00","2","0","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("91","mmmm","","","","","2016-02-08","00:00:00","2016-02-08","00:00:00","1","","2","0","#00ff00","0","0","0","2016-03-15 21:17:57","10","","");
+INSERT INTO `events` VALUES("92","mmmm","","","","","2016-02-09","22:00:00","2016-02-11","09:00:00","0","","5","0","#00ff00","2","0","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("93","mmmm","","","","","2016-02-08","00:00:00","2016-02-08","00:00:00","1","","5","","#00ff00","2","0","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("94","mmmm","","","","","2016-02-08","09:15:00","2016-02-08","12:45:00","0","","3","","#00ff00","2","0","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("103","mmmm","","","","","2016-02-16","22:00:00","2016-02-17","09:00:00","0","","2","","#00ff00","","5","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("104","mmmm","","","","","2016-02-23","22:00:00","2016-02-24","09:00:00","0","","2","","#00ff00","","5","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("105","mmmm","","","","","2016-03-01","22:00:00","2016-03-02","09:00:00","0","","2","","#00ff00","","5","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("106","mmmm","","","","","2016-03-08","22:00:00","2016-03-09","09:00:00","0","","2","","#00ff00","","5","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("107","mmmm","","","","","2016-03-15","22:00:00","2016-03-16","09:00:00","0","","2","","#00ff00","","5","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("108","mmmm","","","","","2016-02-08","22:00:00","2016-02-09","09:00:00","0","","2","","#00ff00","0","0","0","2016-03-15 21:17:57","11","","");
+INSERT INTO `events` VALUES("226","mmmm","","","","","2016-02-12","17:00:00","2016-02-12","17:00:00","1","","1000000","","#00ff00","","6","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("227","mmmm","","","","","2016-02-26","17:00:00","2016-02-26","17:00:00","1","","1000000","","#00ff00","","6","0","2016-03-15 21:17:57","1","","");
+INSERT INTO `events` VALUES("232","mmmm","ghjhghghghghghjghg","","0623545432","http://www.hp.nl","2016-03-10","00:00:00","2016-03-10","00:00:00","1","","2","","#00ff00","0","0","0","2016-03-24 13:22:55","1","3","2");
+INSERT INTO `events` VALUES("234","mmmm","","","","","2016-02-23","17:00:00","2016-02-23","17:00:00","1","","1000000","","#00ff00","0","6","0","2016-03-16 19:30:03","1","","");
+INSERT INTO `events` VALUES("235","mmmm","","","","","2016-02-25","17:00:00","2016-02-25","17:00:00","1","","1000000","","#00ff00","0","6","0","2016-03-16 19:30:04","1","","");
+INSERT INTO `events` VALUES("236","mmmm","","","","","2016-03-08","17:00:00","2016-03-08","17:00:00","1","","1000000","","#00ff00","0","6","0","2016-03-16 19:30:04","1","","");
+INSERT INTO `events` VALUES("237","mmmm","ghjhghghghghghjghg","","","","2016-03-10","00:00:00","2016-03-10","00:00:00","1","","1000000","","#3366cc","0","6","1","2016-03-28 11:58:11","2","3","2");
+INSERT INTO `events` VALUES("238","mmmm","","","","","2016-03-11","00:00:00","2016-03-11","00:00:00","1","","1000000","","#00ff00","0","6","1","2016-03-21 22:13:07","1","","");
+INSERT INTO `events` VALUES("240","llllll","","","","","2016-03-17","09:00:00","2016-03-17","15:00:00","0","","1000000","-1","#00ff00","0","7","1","2016-03-17 15:03:55","1","1","2");
+INSERT INTO `events` VALUES("241","llllll","","","","","2016-03-18","09:00:00","2016-03-18","15:00:00","0","","1000000","-1","#00ff00","0","7","1","2016-03-21 22:19:24","1","1","2");
+INSERT INTO `events` VALUES("242","llllll","","","","","2016-03-30","09:00:00","2016-03-30","15:00:00","0","","1000000","-1","#00ff00","0","7","0","2016-03-16 19:32:53","1","1","2");
+INSERT INTO `events` VALUES("244","llllll - disconnected","","","","","2016-04-02","09:00:00","2016-04-02","15:00:00","0","","1000000","-1","#00ff00","0","0","1","2016-04-03 22:29:52","1","1","2");
+INSERT INTO `events` VALUES("245","llllll","","","","","2016-04-13","09:00:00","2016-04-13","15:00:00","0","","1000000","-1","#00ff00","0","7","0","2016-03-16 19:32:53","1","1","2");
+INSERT INTO `events` VALUES("246","llllll","","","","","2016-04-14","09:00:00","2016-04-14","15:00:00","0","","1000000","-1","#00ff00","0","7","1","2016-04-02 14:51:50","1","1","2");
+INSERT INTO `events` VALUES("247","llllll","","","","","2016-04-15","09:00:00","2016-04-15","15:00:00","0","","1000000","-1","#00ff00","0","7","1","2016-04-03 19:47:01","1","1","2");
+INSERT INTO `events` VALUES("248","admin","","","","","2016-03-17","00:00:00","2016-03-17","00:00:00","1","","8","","#00ffff","2","0","0","2016-03-29 09:11:03","1","1","4");
+INSERT INTO `events` VALUES("249","llllll","","","","","2016-03-16","09:00:00","2016-03-16","15:00:00","0","","1000000","-1","#00ff00","2","7","0","2016-03-16 20:00:08","1","1","2");
+INSERT INTO `events` VALUES("250","test1","","","","","2016-03-17","00:00:00","2016-03-17","00:00:00","1","","9","","#00ff00","2","0","0","2016-03-17 15:03:14","1","","");
+INSERT INTO `events` VALUES("251","gfafdgdagfa","","","","","2016-03-09","22:00:00","2016-03-10","09:00:00","0","","2","","#ff9900","0","0","0","2016-03-21 21:41:31","11","","");
+INSERT INTO `events` VALUES("252","jhgvhjghj","ggg","hhh","054326342643","http://www.hp.nl","2016-03-09","00:00:00","2016-03-09","00:00:00","1","","2","","#3366cc","0","0","0","2016-03-21 21:43:20","9","","");
+INSERT INTO `events` VALUES("253","paul","","","","","2016-03-08","21:00:00","2016-03-09","06:00:00","0","","2","0","#3366cc","0","0","0","2016-03-28 11:55:12","2","0","0");
+INSERT INTO `events` VALUES("254","paul","","","","","2016-03-15","21:00:00","2016-03-16","06:00:00","0","","2","-1","#3366cc","0","0","0","2016-03-28 11:54:18","2","-1","-1");
+INSERT INTO `events` VALUES("255","jhghkgkjhkj","","","","","2016-03-15","00:00:00","2016-03-15","00:00:00","1","","2","-1","#3366cc","0","0","0","2016-03-28 11:54:26","2","-1","-1");
+INSERT INTO `events` VALUES("256","fff  fff","","","","","2016-03-14","00:00:00","2016-03-14","00:00:00","1","","3","-1","#00ff00","2","0","0","2016-03-31 19:00:19","1","-1","-1");
+INSERT INTO `events` VALUES("257","llllll","","","","","2016-03-31","09:00:00","2016-03-31","15:00:00","0","","1000000","-1","#00ff00","0","7","0","2016-04-02 14:47:00","1","1","2");
+INSERT INTO `events` VALUES("258","hjhjhj","","","","","2016-04-22","00:00:00","2016-04-22","00:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-17 16:38:46","1","-1","-1");
+INSERT INTO `events` VALUES("259","kkkjhgghj","","","","","2016-04-07","18:00:00","2016-04-07","18:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 18:44:31","1","-1","-1");
+INSERT INTO `events` VALUES("260","bbbb","","","","","2016-04-20","00:00:00","2016-04-20","00:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-17 16:38:31","1","1","2");
+INSERT INTO `events` VALUES("261","gfhgfh","","","","","2016-04-05","19:00:00","2016-04-05","19:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 19:03:33","1","1","2");
+INSERT INTO `events` VALUES("262","ccccc","","","","","2016-04-07","19:00:00","2016-04-07","19:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 19:08:25","1","1","2");
+INSERT INTO `events` VALUES("263","tttt","","","","","2016-04-09","00:00:00","2016-04-09","00:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-30 08:17:17","1","1","2");
+INSERT INTO `events` VALUES("264","uuuu","","","","","2016-04-22","00:00:00","2016-04-22","00:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-17 21:35:46","1","3","2");
+INSERT INTO `events` VALUES("265","gfgfg","","","","","2016-04-19","00:00:00","2016-04-19","00:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-17 16:38:28","1","1","2");
+INSERT INTO `events` VALUES("266","sdsdsd","","","","","2016-03-30","21:00:00","2016-03-30","21:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 21:38:33","1","-1","-1");
+INSERT INTO `events` VALUES("267","iiiiiii","","","","","2016-04-08","00:00:00","2016-04-08","00:00:00","1","","2","12","#00ff00","0","0","0","2016-04-03 19:52:26","1","1","2");
+INSERT INTO `events` VALUES("268","qqqq","","","","","2016-03-29","21:00:00","2016-03-29","21:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 21:47:37","1","-1","2");
+INSERT INTO `events` VALUES("269","mnmmnnmnmnmnmnmnm","","","","","2016-03-31","21:00:00","2016-03-31","21:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 21:48:24","1","1","-1");
+INSERT INTO `events` VALUES("270","wwwwaaaaaa","","","","","2016-04-05","21:00:00","2016-04-05","21:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 21:57:21","1","1","-1");
+INSERT INTO `events` VALUES("271","jhghjgjhj","","","","","2016-03-30","22:00:00","2016-03-30","22:00:00","1","","2","-1","#00ff00","0","0","0","2016-04-02 22:05:59","1","1","-1");
+INSERT INTO `events` VALUES("272","recur","","","","","2016-04-07","00:00:00","2016-04-07","00:00:00","1","","2","-1","#00ff00","","8","1","2016-04-03 10:39:36","1","3","2");
+INSERT INTO `events` VALUES("273","recur","","","","","2016-04-14","22:00:00","2016-04-14","22:00:00","1","","2","-1","#00ff00","","8","0","2016-04-02 22:07:50","1","3","2");
+INSERT INTO `events` VALUES("274","recur","","","","","2016-04-21","22:00:00","2016-04-21","22:00:00","1","","2","-1","#00ff00","","8","0","2016-04-02 22:07:50","1","3","2");
+INSERT INTO `events` VALUES("275","recurkkk","","","","","2016-04-28","00:00:00","2016-04-28","00:00:00","1","","2","-1","#00ff00","","0","1","2016-05-01 20:56:12","1","3","2");
+INSERT INTO `events` VALUES("276","recur","","","","","2016-05-05","00:00:00","2016-05-05","00:00:00","1","","2","-1","#00ff00","","0","1","2016-05-01 21:07:04","1","3","2");
+INSERT INTO `events` VALUES("277","recur2","","","","","2016-04-06","22:00:00","2016-04-06","22:00:00","1","","2","-1","#00ff00","","9","0","2016-04-02 22:11:48","1","1","-1");
+INSERT INTO `events` VALUES("278","recur2","","","","","2016-04-20","22:00:00","2016-04-20","22:00:00","1","","2","-1","#00ff00","","9","0","2016-04-02 22:11:48","1","1","-1");
+INSERT INTO `events` VALUES("279","recur2","","","","","2016-05-04","22:00:00","2016-05-04","22:00:00","1","","2","-1","#00ff00","","9","0","2016-04-02 22:11:48","1","1","-1");
+INSERT INTO `events` VALUES("280","truck1, trailer1","","","","","2016-04-06","19:00:00","2016-04-06","19:00:00","1","","2","-1","#3366cc","0","0","0","2016-04-06 19:20:51","2","1","2");
+INSERT INTO `events` VALUES("281","truck2, trailer1","","","","","2016-04-07","19:00:00","2016-04-07","19:00:00","1","","2","-1","#3366cc","0","0","0","2016-04-06 19:21:04","2","3","2");
+INSERT INTO `events` VALUES("282","truck2, trailer2","","","","","2016-04-08","19:00:00","2016-04-08","19:00:00","1","","2","-1","#3366cc","0","0","0","2016-04-06 19:21:21","2","3","4");
+INSERT INTO `events` VALUES("283","truck1, trailer2","","","","","2016-04-09","19:00:00","2016-04-09","19:00:00","1","","2","-1","#3366cc","0","0","0","2016-04-06 19:21:34","2","1","4");
+INSERT INTO `events` VALUES("284","hbhbhvh","","","","","2016-03-30","19:00:00","2016-03-30","19:00:00","1","","1000000","-1","#00ff00","0","0","0","2016-04-13 19:37:45","1","-1","-1");
+INSERT INTO `events` VALUES("285","testkkklll","","","","","2016-03-28","00:00:00","2016-03-29","00:00:00","1","","1000000","-1","#00ff00","0","0","0","2016-04-20 19:24:28","1","0","0");
+INSERT INTO `events` VALUES("286","jhgfdtxrytuyhj","","","","","2015-08-05","19:00:00","2015-08-05","19:00:00","1","","1000000","-1","#00ff00","0","0","0","2016-04-22 20:40:28","1","-1","-1");
+INSERT INTO `events` VALUES("287","jhgvcxyctugvjh","","","","","2016-04-07","14:00:00","2016-04-07","14:00:00","1","","2","-1","#3366cc","0","0","0","2016-04-24 14:28:42","7","-1","-1");
+INSERT INTO `events` VALUES("288","ooo000000","","","","","2016-04-06","14:00:00","2016-04-06","14:00:00","1","","2","-1","#3366cc","0","0","0","2016-04-24 14:29:56","7","-1","-1");
+INSERT INTO `events` VALUES("289","hbjbk","","","","","2016-04-06","00:00:00","2016-04-08","00:00:00","1","","2","12","#3366cc","0","0","0","2016-04-29 19:49:51","10","-1","-1");
+INSERT INTO `events` VALUES("290","test","","","","","2016-05-04","21:00:00","2016-05-05","21:00:00","1","","2","-1","#3366cc","0","0","0","2016-05-03 21:48:52","2","1","2");
+INSERT INTO `events` VALUES("291","gjhghj","","","","","2016-05-04","21:00:00","2016-05-04","21:00:00","1","","2","-1","#3366cc","0","0","0","2016-05-03 21:49:55","2","1","2");
+INSERT INTO `events` VALUES("292","kkklklk","","","","","2016-05-05","21:00:00","2016-05-05","21:00:00","1","","2","-1","#3366cc","0","0","0","2016-05-03 21:54:07","2","1","2");
+INSERT INTO `events` VALUES("293","oooo","","","","","2016-04-28","21:00:00","2016-04-28","21:00:00","1","","2","-1","#3366cc","0","0","0","2016-05-03 21:54:19","2","1","4");
+INSERT INTO `events` VALUES("294","bbb","","","","","2016-05-04","21:00:00","2016-05-04","21:00:00","1","","2","12","#3366cc","0","0","0","2016-05-03 21:57:31","2","1","2");
+INSERT INTO `events` VALUES("295","ghfhj","","","","","2016-05-05","00:00:00","2016-05-05","00:00:00","1","","2","5","#3366cc","0","0","0","2016-05-03 22:14:57","2","3","2");
+INSERT INTO `events` VALUES("296","kjhkgj","","","","","2016-04-28","00:00:00","2016-04-28","00:00:00","1","","2","12","#3366cc","0","0","0","2016-05-08 22:08:48","2","1","2");
+INSERT INTO `events` VALUES("297","hbvhjgjh","","","","","2016-04-29","22:00:00","2016-04-29","22:00:00","1","","2","-1","#3366cc","0","0","0","2016-05-03 22:13:50","2","1","2");
+INSERT INTO `events` VALUES("298","vghfthgfj","","","","","2016-05-06","22:00:00","2016-05-06","22:00:00","1","","2","-1","#3366cc","0","0","0","2016-05-03 22:19:23","2","1","2");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `event_files` (
+  `event_file_id` int(11) NOT NULL AUTO_INCREMENT,
+  `event_id` int(11) NOT NULL,
+  `filename` varchar(55) NOT NULL,
+  `original_filename` varchar(255) NOT NULL,
+  `file_extension` varchar(5) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `upload_date` datetime NOT NULL,
+  `create_id` int(11) NOT NULL,
+  PRIMARY KEY (`event_file_id`),
+  UNIQUE KEY `filename` (`filename`,`event_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `event_files` VALUES("1","197","255001a4ab2aa943895e70863286cdeb8f2dba56","employee-work-schedule-small.png","png","image/png","2016-02-05 18:53:51","2");
+INSERT INTO `event_files` VALUES("2","212","3d7a4ee8d78cb267e7a07428646f1ad6293781bf","example_wp_users.csv","csv","text/csv","2016-03-06 15:42:14","2");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `groups` (
+  `group_id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin_id` int(11) DEFAULT NULL,
+  `name` varchar(255) NOT NULL,
+  `description` varchar(1024) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `deleted` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`group_id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+INSERT INTO `groups` VALUES("1","2","teetetetetetete","","1","0");
+INSERT INTO `groups` VALUES("2","4","group of admin2","","1","0");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `group_users` (
+  `group_user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`group_user_id`),
+  UNIQUE KEY `group_id` (`group_id`,`user_id`),
+  KEY `user_id` (`user_id`),
+  KEY `group_id_2` (`group_id`),
+  CONSTRAINT `group_users_group_id` FOREIGN KEY (`group_id`) REFERENCES `groups` (`group_id`) ON DELETE CASCADE,
+  CONSTRAINT `group_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8;
+
+INSERT INTO `group_users` VALUES("14","1","3");
+INSERT INTO `group_users` VALUES("16","1","6");
+INSERT INTO `group_users` VALUES("13","1","8");
+INSERT INTO `group_users` VALUES("18","1","9");
+INSERT INTO `group_users` VALUES("15","1","12");
+INSERT INTO `group_users` VALUES("17","1","15");
+INSERT INTO `group_users` VALUES("2","2","3");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `repeating_events` (
+  `rep_event_id` int(11) NOT NULL AUTO_INCREMENT,
+  `rep_interval` enum('D','W','2W','M','Y') NOT NULL,
+  `every_x_days` int(11) NOT NULL,
+  `every_x_weeks` int(11) NOT NULL,
+  `weekdays` varchar(255) NOT NULL,
+  `monthday` enum('dom','dow') NOT NULL,
+  `yearmonthday` int(2) DEFAULT NULL,
+  `yearmonth` int(2) DEFAULT NULL,
+  `startdate` date NOT NULL,
+  `enddate` date NOT NULL,
+  `bln_broken` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`rep_event_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+
+INSERT INTO `repeating_events` VALUES("5","W","0","1",",2","","0","0","2016-02-16","2016-03-17","0");
+INSERT INTO `repeating_events` VALUES("6","W","0","2",",2,4,5","","0","0","2016-02-12","2016-03-20","1");
+INSERT INTO `repeating_events` VALUES("7","W","0","2",",3,4,5","","0","0","2016-03-16","2016-04-16","0");
+INSERT INTO `repeating_events` VALUES("8","W","0","1",",4","","0","0","2016-04-07","2016-05-07","0");
+INSERT INTO `repeating_events` VALUES("9","W","0","2",",3","","0","0","2016-04-06","2016-05-06","0");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `schedule` (
+  `job_id` int(11) NOT NULL AUTO_INCREMENT,
+  `jobname` varchar(255) NOT NULL,
+  `last_exec_date` datetime NOT NULL,
+  PRIMARY KEY (`job_id`),
+  UNIQUE KEY `jobname` (`jobname`)
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8;
+
+INSERT INTO `schedule` VALUES("35","current_editing","2016-02-23 19:52:55");
+INSERT INTO `schedule` VALUES("90","sqldump","2016-05-10 08:30:12");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `name` varchar(55) NOT NULL,
+  `value` varchar(55) NOT NULL,
+  `section` varchar(55) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `update_date` datetime NOT NULL,
+  UNIQUE KEY `name` (`name`,`section`,`user_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `settings` VALUES("language","EN","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_am_pm","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_delete_confirm_dialog","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("truncate_title","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_notallowed_messages","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_weeknumbers","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("send_activation_mail","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_public_and_private_separately","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_table_look","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_show_time_columns","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_show_date_on_every_line","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_show_logo","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_fontweight_bold","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_colored_rows","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("default_view","month","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("week_view_type","basicWeek","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("day_view_type","agendaDay","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_view_type","mouseover","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("truncate_length","50","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("editdialog_colorpicker_type","spectrum","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("editdialog_timepicker_type","ui","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("hourcalculation_workday_hours","8","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("hourcalculation_default_period","6","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("pdf_sorting","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("dropdown1_label","Trucks","","2","2016-03-23 18:28:08");
+INSERT INTO `settings` VALUES("dropdown2_label","Trailers","","2","2016-03-23 18:28:08");
+INSERT INTO `settings` VALUES("show_am_pm","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("show_delete_confirm_dialog","on","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("truncate_title","on","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("show_notallowed_messages","on","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("show_weeknumbers","on","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("send_activation_mail","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("show_public_and_private_separately","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_table_look","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_show_time_columns","on","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_show_date_on_every_line","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_show_logo","on","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_fontweight_bold","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_colored_rows","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("pdf_sorting","off","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("default_view","month","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("week_view_type","agendaWeek","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("day_view_type","agendaDay","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("language","EN","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("show_view_type","mouseover","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("truncate_length","50","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("editdialog_colorpicker_type","spectrum","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("editdialog_timepicker_type","ui","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("hourcalculation_workday_hours","8","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("hourcalculation_default_period","6","","4","2016-03-23 20:12:17");
+INSERT INTO `settings` VALUES("show_custom_dropdown1_filter","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_custom_dropdown2_filter","on","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("dropdowns_are_linked","off","","2","2016-05-07 21:53:10");
+INSERT INTO `settings` VALUES("show_custom_list_button","on","","2","2016-04-24 22:34:53");
+INSERT INTO `settings` VALUES("show_am_pm","off","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("show_delete_confirm_dialog","off","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("truncate_title","on","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("show_notallowed_messages","on","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("show_weeknumbers","on","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("show_public_and_private_separately","off","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("default_view","month","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("week_view_type","agendaWeek","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("day_view_type","agendaDay","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("language","EN","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("show_view_type","mouseover","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("truncate_length","50","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("pdf_table_look","on","","5","2016-04-30 14:54:00");
+INSERT INTO `settings` VALUES("show_user_filter","on","","2","2016-05-07 21:53:10");
+
+
+
+
+
+CREATE TABLE IF NOT EXISTS `users` (
+  `user_id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(55) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `infix` varchar(15) DEFAULT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `registration_date` datetime NOT NULL,
+  `birth_date` date NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `user_hash` varchar(255) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '0',
+  `ip` varchar(55) DEFAULT NULL,
+  `country` varchar(55) DEFAULT NULL,
+  `country_code` varchar(2) DEFAULT NULL,
+  `usertype` enum('superadmin','admin','user') NOT NULL DEFAULT 'user',
+  `admin_group` int(11) DEFAULT NULL,
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `user_info` text,
+  `trial` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`user_id`),
+  UNIQUE KEY `username` (`username`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+INSERT INTO `users` VALUES("1","","","","superadmin","superadmin@somemail","2014-08-02 10:09:39","0000-00-00","superadmin","d4558c97495b2c3954f73bae761c6d0f","","1","","","","superadmin","","0","","0");
+INSERT INTO `users` VALUES("2","","","","admin","admin@somemail","2014-08-02 10:10:39","0000-00-00","admin","af41d89626f1dc9dfef36870cc9d24f6","","1","","","","admin","","0","","0");
+INSERT INTO `users` VALUES("3","nxxnbxnbx","fff","","fff","paulwolbers@home.nl","2016-01-31 12:11:33","0000-00-00","fff","a7d65a075a049af4c0bb3f13d4562a44","","1","::1","","","user","2","0","","0");
+INSERT INTO `users` VALUES("4","sr","admin2","","admin2","janaenpaul@home.nl","2016-01-31 14:35:59","0000-00-00","admin2","fc35bbce41197c2f4e07aa5e952ebab2","","1","::1","","","admin","1","0","","0");
+INSERT INTO `users` VALUES("5","","lll","","lll","paul.wolbers@gmail.com","2016-02-20 11:37:53","0000-00-00","lll","0c8e81f961953e91979971cfac12c7a8","","1","::1","","","user","2","0","","0");
+INSERT INTO `users` VALUES("6","","","","jhjhj","","0000-00-00 00:00:00","0000-00-00","","9f0bef7cc562c7d31c70827f3ec095ae","","0","","","","user","2","1","","0");
+INSERT INTO `users` VALUES("8","","","","admin","paul@appsoftware.nl","2015-08-11 14:15:00","0000-00-00","adminuitwp","73f6934bf852f300107093fc352e6c2c","","1","","","","user","2","0","","0");
+INSERT INTO `users` VALUES("9","","","","test1","email@mail.nl","2015-10-10 12:10:00","1990-10-10","test1","fb88d36cdbfc0d7b32e7e6ceb69da81d","","1","","","","user","2","0","","0");
+INSERT INTO `users` VALUES("12","Ms","J","","Green","email@mail.net","2015-10-10 10:10:00","1990-10-10","test3","0dee1bef2e2223a56c431b96a5baa40d","","1","100.100.100.100","","","user","2","0","something something","0");
+INSERT INTO `users` VALUES("15","","","","test","email@email.com","2015-10-10 12:10:00","1990-10-10","test","fb88d36cdbfc0d7b32e7e6ceb69da81d","","1","100.100.100.100","","","user","2","0","","0");
+INSERT INTO `users` VALUES("16","","p","","w","paulwers@home.nl","2016-04-13 20:31:13","1970-01-01","pw","711e68bd0dbc9a2041243cfcb54dd8a3","5dd51991dee3c16a42e4cede90eab590","1","::1","","","user","","0","","0");
+INSERT INTO `users` VALUES("17","","l","","w","leonie@home.nl","2016-04-14 19:30:27","1970-01-01","lw","3850e1b44fd02ea916b03f7b68c9ef42","ae99465986078eaad46033be89705f61","1","::1","","","user","","0","","1");
+
+
+
