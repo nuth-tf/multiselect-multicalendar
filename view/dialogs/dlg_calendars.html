@@ -1,0 +1,95 @@
+<style>
+	::-webkit-input-placeholder {
+	    color: red;
+	}
+	:-moz-placeholder {
+	    color: #acacac !important;
+	}
+	::-moz-placeholder {
+	    color: #acacac !important;
+	} /* for the future */
+	:-ms-input-placeholder {
+	    color: #acacac !important;
+	}
+
+
+		</style>
+
+	<div id="dialog-calendars" style="display: none;">
+		<div id= "calendars_error_message" style="height:20px;font-size:10pt;color:#FF0004;" ></div>
+		<form class="form-horizontal" method="post" action="">
+
+			<div class="control-group">
+                <label for="admin_user_profile_title" class="control-label">Title </label>
+                <div class="controls">
+                    <input type="text" class="input-xlarge" id="profile_title" name="title" value="<?smarty $calendars.title ?>">
+                </div>
+            </div>
+            <div class="control-group">
+				<label id="calendars_name_label_id" class="control-label">Name </label>
+				<div class="controls">
+					<input style="width:100px;" type="text" class="input-xlarge" id="calendars_firstname" name="firstname" placeholder="Firstname" value="<?smarty $calendars.firstname ?>">
+					<?smarty if $smarty.const.SHOW_INFIX_IN_FORM ?>
+						<input style="width:40px;" type="text" class="input-xlarge" id="calendars_infix" name="infix" value="<?smarty $calendars.infix ?>">
+					<?smarty /if ?>
+					<input style="width:<?smarty if $smarty.const.SHOW_INFIX_IN_FORM ?>110<?smarty else ?>170<?smarty /if ?>px;" type="text" class="input-xlarge" id="calendars_lastname" name="lastname" placeholder="Lastname" value="<?smarty $calendars.lastname ?>">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label id="calendars_birthdate_label_id" class="control-label">Birthdate </label>
+				<div class="controls">
+				<?smarty if $smarty.const.DATEPICKER_DATEFORMAT == 'dd/mm/yy' ?>
+					<input style="width:25px;" type="text" placeholder="DD" class="input-xlarge" id="calendars_birthdate_day" name="birthdate_day" value="<?smarty $calendars.birthdate_day ?>">
+					<input style="width:25px;" type="text" placeholder="MM" class="input-xlarge" id="calendars_birthdate_month" name="birthdate_month" value="<?smarty $calendars.birthdate_month ?>">
+
+				<?smarty else ?>
+					<input style="width:25px;" type="text" placeholder="MM" class="input-xlarge" id="calendars_birthdate_month" name="birthdate_month" value="<?smarty $calendars.birthdate_month ?>">
+					<input style="width:25px;" type="text" placeholder="DD" class="input-xlarge" id="calendars_birthdate_day" name="birthdate_day" value="<?smarty $calendars.birthdate_day ?>">
+
+				<?smarty /if ?>
+				<input style="width:45px;" type="text" placeholder="YYYY" class="input-xlarge" id="calendars_birthdate_year" name="birthdate_year" value="<?smarty $calendars.birthdate_year ?>">
+
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label id="calendars_country_label_id" class="control-label">Country </label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="calendars_country" name="country" value="<?smarty $calendars.country ?>">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label id="calendars_email_label_id" class="control-label">Email </label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="calendars_email" name="email" value="<?smarty $calendars.email ?>">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label id="calendars_username_label_id" class="control-label">Username </label>
+				<div class="controls">
+					<input type="text" class="input-xlarge" id="calendars_username" name="username" value="<?smarty $calendars.username ?>">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label id="calendars_new_password_label_id" class="control-label">New password </label>
+				<div class="controls">
+					<input type="password" autocomplete="off" class="input-xlarge" id="calendars_password" name="password" placeholder="Leave blank for no change">
+				</div>
+			</div>
+
+			<div class="control-group">
+				<label id="calendars_new_password2_label_id" class="control-label">New password again <a tabindex="99" ></label>
+				<div class="controls">
+					<input type="password" autocomplete="off" class="input-xlarge" id="calendars_confirm" name="confirm" placeholder="Leave blank for no change">
+				</div>
+			</div>
+			<input type="hidden" name="user_id" value="<?smarty $calendars.user_id ?>" />
+
+		</form>
+		<!--<b>Hint:</b><span style="font-size: 10px;"> There may have been an all day booking, or perhaps a conflicting booking. Try booking another time slot!</span>-->
+
+	</div>

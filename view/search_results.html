@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en_EN">
+<head>
+    <title><?smarty $smarty.const.CALENDAR_TITLE ?></title>
+    
+<meta name="viewport" content="width=370, initial-scale=1.0">
+<meta charset="utf-8" /> 
+
+<style type='text/css'>
+
+	body {
+		margin-top: 40px;
+		text-align: center;
+		font-size: 14px;
+		font-family: arial,"Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+
+		}
+
+	#agenda {
+		text-align:left;
+		background-color:#fff;
+		border-left: 1px solid #CCCCCC;
+		border-right: 1px solid #CCCCCC;
+		border-bottom: 1px solid #CCCCCC;
+		width:80%;
+		margin-left:5%;
+	}
+
+	.agenda_title {
+		background: none repeat scroll 0 0 #fff;
+		background-color:#FFFFCC;
+		font-size: small;
+		padding:7px 3px 3px 6px;
+		font-weight:bold;
+		border-top: 1px solid #CCCCCC;
+		border-bottom: 1px dotted #CCCCCC;
+	}
+	.agenda_item {
+		float:left;
+		font-size: small;
+		padding:3px 3px 8px 6px;
+	}
+
+
+</style>
+
+<link rel='stylesheet' type='text/css' href='<?smarty $smarty.const.FULLCAL_URL ?>/style/style.css' />
+
+</head>
+<body>
+
+
+	<a href="<?smarty $smarty.const.FULLCAL_URL ?>" class="button-fc-like" style="text-decoration:none;float:left;margin-left:5%;margin-right:20px;margin-bottom:20px;">To calendar</a>
+		<div style="margin-left:5%;">
+			<form method="POST" action="<?smarty $smarty.const.FULLCAL_URL ?>/?action=search">
+				<input type="text" name="sq" style="line-height: 20px;max-width:180px;" value="<?smarty if isset($q) ?><?smarty $q ?><?smarty /if ?>" />
+				<input type="hidden" name="cal_id" value="<?smarty $cal_id ?>" />
+				<input type="submit" class="button-fc-like" unselectable="on" style="-moz-user-select: none;" value="Search" />
+
+			</form>
+
+		</div>
+
+	<br style="clear:both;" />
+	<?smarty if empty($results) ?>
+		<span>No results found</span>
+	<?smarty else ?>
+		<div id="agenda">
+
+			<?smarty foreach from=$results item=i key=k ?>
+				<div class="agenda_title"><?smarty $i.date_start ?></div>
+
+				<div class="agenda_item"><?smarty if $i.allDay == 1 ?><?smarty else ?><?smarty $i.time_start|date_format:"%H:%M" ?> - <?smarty $i.time_end|date_format:"%H:%M" ?><?smarty /if ?>
+					<?smarty if $i.repeating_event_id > 0 ?>(Recurring event
+					<?smarty if !empty($i.rep_interval) ?>, <?smarty if $i.rep_interval == 'W' ?><?smarty if $i.every_x_weeks > 0 ?><?smarty $i.every_x_weeks ?> <?smarty /if ?>Weekly on <?smarty $i.weekdays ?><?smarty elseif $i.rep_interval == 'M' ?>Monthly on <?smarty if $i.monthday == 'dom' ?>day <?smarty /if ?><?smarty $i.monthdays ?><?smarty else ?>Daily<?smarty if $i.every_x_days > 0 ?>, every <?smarty if $i.every_x_days <= 1 ?>day <?smarty else ?><?smarty $i.every_x_days ?> days<?smarty /if ?><?smarty /if ?><?smarty /if ?> <?smarty /if ?>
+					)<?smarty /if ?>
+
+					<br /><?smarty $i.title ?><?smarty if !empty($i.description) ?> -&nbsp;<?smarty /if ?>
+
+
+					<?smarty $i.description ?>
+				</div>
+				<form method="POST" action="<?smarty $smarty.const.FULLCAL_URL ?>/">
+                    <input type="hidden" name="sd" value="<?smarty $i.date_start ?>" />
+                    <input type="hidden" name="ft" value="<?smarty $i.title ?>" />
+                    <input type="hidden" name="cid" value="<?smarty $i.calendar_id ?>" />
+                    <input type="submit" class="button-fc-like" unselectable="on" style="-moz-user-select: none;float: right;margin: 8px; padding: 2px;" value="Go to date" />
+                </form>
+				<br style="clear:both;" />
+			<?smarty /foreach ?>
+
+		</div>
+	<?smarty /if ?>
+</body>
+</html>
+

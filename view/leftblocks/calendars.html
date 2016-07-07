@@ -1,0 +1,110 @@
+        <?smarty if $smarty.const.SHOW_PUBLIC_AND_PRIVATE_SEPARATELY ?>
+            <?smarty if $cnt_public > 0 ?>
+            <?smarty capture name="public_cals" ?>
+                <?smarty foreach from=$my_active_calendars item=item ?>
+
+                    <?smarty if $item.share_type == "public" ?>
+                    <div class="onecalendar-wrap" >
+                        <?smarty if $item.initial_show ?>
+                            <div onclick="MyCalendar.addCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" alt="Click to show/hide" title="Click to show/hide" id="calgroup<?smarty $item.calendar_id ?>" class="tick_on" cal_id="<?smarty $item.calendar_id ?>" feedurl="<?smarty $item.feedurl ?>" origin="<?smarty $item.originClick to show/hide ?>" style="margin:4px 0 0 2px;cursor: pointer; float: left; width: 1.4em;cursor:pointer;font-size:0.85em;">
+                                &nbsp;
+                            </div>
+                        <?smarty else ?>
+                            <div onclick="MyCalendar.addCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" alt="Click to show/hide" title="Click to show/hide" id="calgroup<?smarty $item.calendar_id ?>" class="tick_off" cal_id="<?smarty $item.calendar_id ?>" feedurl="<?smarty $item.feedurl ?>" origin="<?smarty $item.origin ?>" style="margin:6px 0 0 1px;cursor: pointer; float: left; width: 1.4em;cursor:pointer;font-size:12px;color:#FFFFFF;font-weight:bold;">
+                                &nbsp;
+                            </div>
+                        <?smarty /if ?>
+
+                        <script type='text/javascript'>
+                            document.styleSheets[3].insertRule(" #caldiv_<?smarty $item.calendar_id ?> { border-color:<?smarty if !empty( $item.color ) ?><?smarty $item.color ?><?smarty else ?><?smarty $item.calendar_color ?><?smarty /if ?> }",1);
+                        </script>
+                        
+                        <div  class="onecalendar" id="caldiv_<?smarty $item.calendar_id ?>" style="width:122px;background-color:<?smarty if !empty( $item.color ) ?><?smarty $item.color ?><?smarty else ?><?smarty $item.calendar_color ?><?smarty /if ?>" onclick="MyCalendar.openCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" title="Show only this calendar" >
+                            <a id="calname<?smarty $item.calendar_id ?>" style="text-decoration: none;color: #EFEFEF;" href="#" >
+                            <span style="font-family:tahoma,arial;text-shadow: -1px 0 #9F9F9F, 0 1px #9F9F9F, 1px 0 #9F9F9F, 0 -1px #9F9F9F;color:#fff;padding-left:3px;"><?smarty $item.name ?></span></a><?smarty if $item.origin == 'google' ?><span style="float:right;"><img src="<?smarty $smarty.const.IMAGES_URL ?>/google-icon.png" title="Google Calendar" alt="Google Calendar" /></span><?smarty /if ?>
+                            <!-- hier stond eerst span caldiv -->
+                        </div>
+                    </div>
+                    <?smarty /if ?>
+
+                <?smarty /foreach ?>
+            <?smarty /capture ?>
+            <div><?smarty if $cnt_private > 0 ?>Public<?smarty /if ?>
+                    <?smarty $smarty.capture.public_cals ?></div>
+                
+            <?smarty /if ?>
+               
+            <?smarty if $cnt_private > 0 ?>
+            <?smarty capture name="private_cals" ?>
+                <?smarty foreach from=$my_active_calendars item=item ?>
+
+                    <?smarty if $item.share_type != "public" ?>
+                    <div class="onecalendar-wrap" >
+                        <?smarty if $item.initial_show ?>
+                            <div onclick="MyCalendar.addCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" alt="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" title="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" id="calgroup<?smarty $item.calendar_id ?>" class="tick_on" cal_id="<?smarty $item.calendar_id ?>" feedurl="<?smarty $item.feedurl ?>" origin="<?smarty $item.origin ?>" style="margin:4px 0 0 2px;cursor: pointer; float: left; width: 1.4em;cursor:pointer;font-size:0.85em;">
+                                &nbsp;
+                            </div>
+                        <?smarty else ?>
+                        <div onclick="MyCalendar.addCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" alt="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" title="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" id="calgroup<?smarty $item.calendar_id ?>" class="tick_off" cal_id="<?smarty $item.calendar_id ?>" feedurl="<?smarty $item.feedurl ?>" origin="<?smarty $item.origin ?>" style="margin:6px 0 0 1px;cursor: pointer; float: left; width: 1.4em;cursor:pointer;font-size:12px;color:#FFFFFF;font-weight:bold;">
+                                &nbsp;
+                            </div>
+                        <?smarty /if ?>
+
+                        <script type='text/javascript'>
+                            document.styleSheets[3].insertRule(" #caldiv_<?smarty $item.calendar_id ?> { border-color:<?smarty if !empty( $item.color ) ?><?smarty $item.color ?><?smarty else ?><?smarty $item.calendar_color ?><?smarty /if ?> }",1);
+                        </script>
+                        
+                        <div  class="onecalendar" id="caldiv_<?smarty $item.calendar_id ?>" style="width:122px;background-color:<?smarty if !empty( $item.color ) ?><?smarty $item.color ?><?smarty else ?><?smarty $item.calendar_color ?><?smarty /if ?>" onclick="MyCalendar.openCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" title="<?smarty if $my_active_calendars|@count > 1 ?>Show only this calendar<?smarty /if ?>" >
+                            <a id="calname<?smarty $item.calendar_id ?>" style="text-decoration: none;color: #EFEFEF;" href="#" >
+                            <span style="font-family:tahoma,arial;text-shadow: -1px 0 #9F9F9F, 0 1px #9F9F9F, 1px 0 #9F9F9F, 0 -1px #9F9F9F;color:#fff;padding-left:3px;"><?smarty $item.name ?></span></a><?smarty if $item.origin == 'google' ?><span style="float:right;"><img src="<?smarty $smarty.const.IMAGES_URL ?>/google-icon.png" title="Google Calendar" alt="Google Calendar" /></span><?smarty /if ?>
+                            <!-- hier stond eerst span caldiv -->
+                        </div>
+                    </div>
+                    <?smarty /if ?>
+
+                <?smarty /foreach ?>
+            <?smarty /capture ?>
+            <div style="padding-top:10px;"><?smarty if $cnt_public > 0 ?>Private<?smarty /if ?>
+                <?smarty $smarty.capture.private_cals ?></div>
+            <?smarty /if ?>
+            
+           
+        <?smarty else ?>
+            <?smarty foreach from=$my_active_calendars item=item ?>
+
+                <div class="onecalendar-wrap" >
+                    <?smarty if $item.initial_show ?>
+                        <div onclick="MyCalendar.addCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" alt="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" title="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" id="calgroup<?smarty $item.calendar_id ?>" class="tick_on" cal_id="<?smarty $item.calendar_id ?>" feedurl="<?smarty $item.feedurl ?>" origin="<?smarty $item.origin ?>" style="margin:4px 0 0 2px;cursor: pointer; float: left; width: 1.4em;cursor:pointer;font-size:0.85em;">
+                            &nbsp;
+                        </div>
+                    <?smarty else ?>
+                    <div onclick="MyCalendar.addCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" alt="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" title="<?smarty if $my_active_calendars|@count > 1 ?>Click to show/hide<?smarty /if ?>" id="calgroup<?smarty $item.calendar_id ?>" class="tick_off" cal_id="<?smarty $item.calendar_id ?>" feedurl="<?smarty $item.feedurl ?>" origin="<?smarty $item.origin ?>" style="margin:6px 0 0 1px;cursor: pointer; float: left; width: 1.4em;cursor:pointer;font-size:12px;color:#FFFFFF;font-weight:bold;">
+                            &nbsp;
+                        </div>
+                    <?smarty /if ?>
+
+                    <script type='text/javascript'>
+                        document.styleSheets[3].insertRule(" #caldiv_<?smarty $item.calendar_id ?> { border-color:<?smarty if !empty( $item.color ) ?><?smarty $item.color ?><?smarty else ?><?smarty $item.calendar_color ?><?smarty /if ?> }",1);
+                    </script>
+                    
+                    <div  class="onecalendar" id="caldiv_<?smarty $item.calendar_id ?>" style="width:122px;background-color:<?smarty if !empty( $item.color ) ?><?smarty $item.color ?><?smarty else ?><?smarty $item.calendar_color ?><?smarty /if ?>" onclick="MyCalendar.openCalendar('<?smarty $item.calendar_id ?>','<?smarty $item.name|@addslashes ?>','<?smarty $item.origin ?>','<?smarty $item.feedurl ?>');" title="<?smarty if $my_active_calendars|@count > 1 ?>Show only this calendar<?smarty /if ?>" >
+                        <a id="calname<?smarty $item.calendar_id ?>" style="text-decoration: none;color: #EFEFEF;" href="#" >
+                        <span style="font-family:tahoma,arial;text-shadow: -1px 0 #9F9F9F, 0 1px #9F9F9F, 1px 0 #9F9F9F, 0 -1px #9F9F9F;color:#fff;padding-left:3px;"><?smarty $item.name ?></span></a><?smarty if $item.origin == 'google' ?><span style="float:right;"><img src="<?smarty $smarty.const.IMAGES_URL ?>/google-icon.png" title="Google Calendar" alt="Google Calendar" /></span><?smarty /if ?>
+                        <!-- hier stond eerst span caldiv -->
+                    </div>
+                </div>
+               
+            <?smarty /foreach ?>
+            
+        <?smarty /if ?>
+       
+        <?smarty if $my_active_calendars|@count > 1 ?>
+                <div id="calendars_div" class="all_cals" <?smarty if $smarty.const.SHOW_PUBLIC_AND_PRIVATE_SEPARATELY ?>style="padding-top:10px;"<?smarty /if ?>>
+                        <div class="onecalendar-wrap">
+                                <div class="onecalendar" onclick="MyCalendar.openCalendar('all');">
+                                        &nbsp;&nbsp;&nbsp;Show all
+                                </div>
+                        </div>
+                </div>
+        <?smarty /if ?>
+        <br style="clear:left;" />
