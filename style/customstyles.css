@@ -1,0 +1,200 @@
+<style type='text/css'>
+
+.found-title {
+    border: 3px solid red !important;
+    color: yellow;
+}
+#external-calendars {
+    float: left;
+    width: 140px;
+}
+/* 1 row title
+        span.fc-event-title {
+            width: 100%;
+            max-width: 100%;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+*/
+.chosen-single {
+    width:150px !important;
+}
+
+#loading {
+    /*border-radius:15px;
+    padding:10px;
+    background-color:#000;
+    color:white;*/
+    position:absolute;
+    top:-12px;
+    left:18%;
+    display:none;
+    z-index:1010;
+}
+
+
+#saving {
+    border-radius:15px;
+    padding:10px;
+    background-color:#000;
+    color:white;
+    position:absolute;
+    top:-15px;
+    left:18%;
+    display:none;
+    z-index:1010;
+}
+
+/*#cal_message {
+        border-radius:15px;
+        padding:10px;
+        background-color:#17BF1E;
+        color:white;
+        position:absolute;
+        top:-15px;
+        left:18%;
+        width:15%;
+        display:none;
+        z-index:1011;
+        box-shadow: 0 4px 5px rgba(0, 0, 0, 0.15);
+}*/
+
+#overlay {
+    display:none;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width:100%;
+    height:100%;
+    text-align:center;
+    z-index: 1000;
+    background-color: #333;
+    zoom: 1;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+}
+#editform {
+    display:none;
+    position:fixed;
+    top:30%;
+    left:50%;
+    margin-left: -150px;
+    width: 300px;
+    height: 150px;
+    background-color:#F0F0F0;
+    border:solid 1px #333;
+    z-index:2000;
+}
+h3.active, h3:hover {
+    background: #EEEEEE; /* old browsers */
+    background: -moz-linear-gradient(top, #EEEEEE 0%, #DDDDDD 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#EEEEEE), color-stop(100%,#DDDDDD)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#EEEEEE', endColorstr='#DDDDDD',GradientType=0 ); /* ie */
+}
+div.sidebox {
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding: 10px;
+    background: #F9F9F9;
+    border: #E0E0E0 1px solid;
+    line-height: 16px;
+    outline: 1px white solid;
+}
+.sidebox ul {
+    list-style-type: none;
+    list-style-image: none;
+    padding: 0;
+    margin: -10px -10px -10px -10px;
+}
+.sidebox ul li {
+    padding-left: 10px;
+    line-height: 30px;
+    height: 30px;
+    color: #333;
+    background: #FCFCFC; /* old browsers */
+    border-bottom: 1px solid #F0F0F0;
+
+}
+.sidebox ul li:hover {
+    background: #F0F0F0; /* old browsers */
+    color: #000;
+}
+.sidebox ul li.active {
+    background: #EEEEEE; /* old browsers */
+    background: -moz-linear-gradient(top, #DDDDDD 0%, #EEEEEE 100%); /* firefox */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#DDDDDD), color-stop(100%,#EEEEEE)); /* webkit */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#DDDDDD', endColorstr='#EEEEEE',GradientType=0 ); /* ie */	color: #000;
+    border-top: 1px solid #D3D3D3;
+    border-bottom: 1px solid #D3D3D3;
+
+}
+.ui-widget {
+    font-size: 1em;
+}
+.ui-dialog {
+    padding:0;
+}
+.ui-widget-header {
+    background-image: -moz-linear-gradient(center top , #fdfdfd 0%, #eaeaea 100%);
+}
+
+.not-draggable {
+    /*cursor: pointer;*/
+}
+
+.ui-button-text-only .ui-button-text {
+    padding: 0.2em 0.4em;
+}
+
+.ui-button-left {
+    position:absolute;
+    left:18px;
+}
+
+.control-label {
+    float: left;
+    padding-top: 5px;
+    text-align: right;
+    width: 160px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+label, input, button, select, textarea {
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 20px;
+}
+.control-group:before, .control-group:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.control-group:after {
+    clear: both;
+}
+.control-group:before, .control-group:after {
+    content: "";
+    display: table;
+    line-height: 0;
+}
+.control-group {
+    margin-bottom: 5px;
+}
+.controls {
+    margin-left: 170px;
+}
+.disabled {
+    /*background: repeating-linear-gradient(135deg, lightgray , lightgray 1px, #fff 1px, #fff 100px);*/
+    background-color: #F7F7F7;
+}
+
+.ui-dialog-titlebar-close {
+    visibility: hidden;
+}
+
+
+</style>
